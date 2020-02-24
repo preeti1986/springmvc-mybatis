@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper  namespace="org.java.learning.dao.EmployeeMapper">
+ 
+ <resultMap type="employee" id="result">
+ 	<id column="id" property="id"/>
+ 	<result column="fullname" property="fullname"/>
+ 	<result column="email" property="email"/>
+ 	<result column="gender" property="gender"/>
+ 	<result column="hobbies" property="hobbies"/>
+ 	<result column="country" property="country"/>
+ 	<result column="address" property="address"/>
+ </resultMap>
+ 
+ <select id="getAllEmployees" resultType="employee" resultMap="result">
+ 	select * from employee
+ </select>
+ 
+ <insert id="insertEmployee" parameterType="employee" useGeneratedKeys="true" keyProperty="id">
+ 	insert into employee(fullname,email,gender,hobbies,country,address)
+ 	values (#{fullname},#{email},#{gender},#{hobbies},#{country},#{address})
+ </insert>
+ 
+ 
+ <delete id="deleteEmployee" parameterType="int">
+    delete from employee where id= #{employeeId}
+ </delete>
+ 
+ <select id="findById" parameterType="int" resultType="employee" resultMap="result">
+ 	select * from employee where id= #{employeeId}
+ </select>
+ 
+ <update id="updateEmployee" parameterType="employee">
+ 	update employee set fullname = #{fullname},email=#{email},gender= #{gender},hobbies=#{hobbies},country=#{country},address=#{address}
+ 	where id = #{id}
+ </update>
+ </mapper>
